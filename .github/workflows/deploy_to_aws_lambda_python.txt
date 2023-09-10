@@ -1,0 +1,54 @@
+name: Deploy Lambda Function
+
+on:
+  push:
+    branches:
+      - main  # デプロイしたいブランチに変更
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Configure AWS CLI
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1  # AWS リージョンを適切な値に変更
+
+    - name: Replace Secrets in Python Script
+      run: |
+        # Python スクリプトのパスを指定
+        python_script_path="path/to/your/python_script.py"
+        
+        # GitHub Secrets から値を取得
+        my_secret_value="${{ secrets.MY_SECRET }}"
+        
+        # Python スクリプト内の特定の値を GitHub Secrets の値で置き換え
+        sed -i "s/YOUR_SECRET_PLACEHOLDER/$my_secret_value/g" $python_script_path
+
+    - name: Create Deployment Package
+      run: |
+        # デプロイメントパッケージのディレクトリを作成
+        mkdir deployment_package
+
+        # Python スクリプトと依存関係をデプロイメントパッケージにコピー
+        cp path/to/your/python_script.py deployment_package/
+        # 他の必要なファイルも同様にコピー
+
+        # 必要なファイルを .zip ファイルに圧縮
+        zip -r deployment_package.zip deployment_package/
+
+    - name: Deploy Lambda Function
+      run: |
+        # AWS Lambda 関数のデプロイコマンドを実行
+        aws lambda create-function \
+          --function-name MyLambdaFunction \
+          --runtime python3.8 \
+          --handler my_lambda_function.handler \
+          --zip-file fileb://deployment_package.zip \
+          --role arn:aws:iam::123456789012:role/lambda-role  # IAM ロールのARNを指定
