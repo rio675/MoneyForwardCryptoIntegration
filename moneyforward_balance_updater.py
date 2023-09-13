@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 
 from get_bnbx_wallet_balance import get_bnbx_balance
+from get_btc_wallet_balance import get_btc_balance
 
 def lambda_handler(event, context):
 
@@ -98,5 +99,6 @@ def calculate_sum():
     total_sum = 0
 
     total_sum += get_bnbx_balance()
+    total_sum += get_btc_balance()
 
     return total_sum

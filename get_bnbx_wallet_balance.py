@@ -86,7 +86,7 @@ def get_bnbx_balance():
     bnbx_balance_smallest_decimal = get_token_balance(bsc_api_key, contract_address, wallet_address)
     bnbx_balance_normal_decimal = smallest_decimal_to_normal(int(bnbx_balance_smallest_decimal), decimal_places)
     bnbx_balance_normal_decimal_truncated = truncate_to_range(bnbx_balance_normal_decimal, min_value=1e-8, max_value=1000000000000)
-    
+
     if bnbx_balance_normal_decimal_truncated is not None:
         print(f"BNBX残高: {bnbx_balance_normal_decimal_truncated}")
         jpy_amount = convert_to_jpy(coinmarketcap_api_key, bnbx_balance_normal_decimal_truncated, "BNBX")
@@ -99,4 +99,4 @@ def get_bnbx_balance():
         print("BNBX残高が取得できませんでした。")
 
 if __name__ == "__main__":
-    get_bnbx_wallet_balance()
+    get_bnbx_balance()
