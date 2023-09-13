@@ -1,5 +1,6 @@
 # MoneyForwardCryptoIntegration
-MoneyForwardCryptoIntegrationは、仮想通貨資産の統合管理と自動同期を実現するプロジェクトです。このプロジェクトの目的は、マネーフォワードと公式API非対応の様々な仮想通貨プラットフォーム（例: Ledger、Bybitなど）の間での仮想通貨残高を自動的に同期し、マネーフォワードの資産状況を最新に保つことです。
+MoneyForwardCryptoIntegrationは、仮想通貨資産の統合管理と自動同期を実現するプロジェクトです。このプロジェクトの目的は、マネーフォワードと公式API非対応の様々な仮想通貨プラットフォーム（例: Ledger、Bybitなど）の間での仮想通貨残高を自動的に同期し、マネーフォワードの資産状況を最新に保つことです。<br>
+[MoneyForward](https://moneyforward.com/)
 
  ## How to install
  ### 1. AWSアカウントを取得、下記を参考にSeleniumを実行可能な環境を整える
