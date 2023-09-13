@@ -3,7 +3,8 @@ import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.chrome.service import Service
+
+from get_bnbx_wallet_balance import get_bnbx_balance
 
 def lambda_handler(event, context):
 
@@ -65,7 +66,7 @@ def lambda_handler(event, context):
         #残高修正入力
         elem = driver.find_element(By.ID, "rollover_info_value")
         elem.clear()
-        elem.send_keys("555")
+        elem.send_keys(calculate_sum())
         
         driver.implicitly_wait(3)   #wait
         
@@ -91,3 +92,11 @@ def lambda_handler(event, context):
     finally:
         print("End")
         #driver.quit()
+
+
+def calculate_sum():
+    total_sum = 0
+
+    total_sum += get_bnbx_balance()
+
+    return total_sum

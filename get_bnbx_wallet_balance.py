@@ -76,7 +76,7 @@ def truncate_to_range(number, min_value=1e-8, max_value=1000000000000):
 
     return str(number)
 
-if __name__ == "__main__":
+def get_bnbx_balance():
     bsc_api_key = "P8CHB9K1WSKYQXJ7BBDBPWZGER9U33DNDN"
     coinmarketcap_api_key = "baefec12-bbb8-4e7e-845e-24bd574d0cdc"
     contract_address = "0x1bdd3Cf7F79cfB8EdbB955f20ad99211551BA275"
@@ -92,7 +92,11 @@ if __name__ == "__main__":
         jpy_amount = convert_to_jpy(coinmarketcap_api_key, bnbx_balance_normal_decimal_truncated, "BNBX")
         if jpy_amount is not None:
             print(f"JPY残高: {jpy_amount} JPY")
+            return jpy_amount
         else:
             print("JPYへの変換ができませんでした。")
     else:
         print("BNBX残高が取得できませんでした。")
+
+if __name__ == "__main__":
+    get_bnbx_wallet_balance()
