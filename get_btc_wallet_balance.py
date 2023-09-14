@@ -1,17 +1,24 @@
+"""module providing a btc wallet balance getter"""
 import requests
 from requests import Session
-import requests
 from bs4 import BeautifulSoup
 
 def get_token_balance():
-
+    """
+    a function to get btc wallet balance from xpub public key
+    """
     # BTC xpub wallet balanceのURL
     # Ledger内のsegwitアドレスの残高取得の良いAPI無し
     # xpubから取得できる良いAPIも無かったのでスクレイピングで暫定対応。レスポンス遅い、後でAPI再捜索。
-    url = "https://www.blockchain.com/explorer/assets/btc/xpub/xpub6BhqNhL28xrrRXSK6SHzLMob3EppmXNFaUmYJxHDsddVwLdQW2VZ3rprrJ8TSbqe7QmSzBZWAY8G9qq9Stzz3fEhr3fR7zfAtGXhLuBbtQy"
+    url = "https://www.blockchain.com/explorer/assets/btc/\
+        xpub/xpub6BhqNhL28xrrRXSK6SHzLMob3EppmXNFaUmYJxHDsd\
+            dVwLdQW2VZ3rprrJ8TSbqe7QmSzBZWAY8G9qq9Stzz3fEhr3fR7zfAtGXhLuBbtQy"
+
+    # Specify a timeout value in seconds (e.g., 10 seconds)
+    timeout_seconds = 10
 
     # HTTP GETリクエストを送信してHTMLを取得
-    response = requests.get(url)
+    response = requests.get(url, timeout=timeout_seconds)
     html = response.text
 
     # BeautifulSoupを使用してHTMLを解析
@@ -33,6 +40,9 @@ def get_token_balance():
         print("要素が見つかりませんでした")
 
 def convert_to_jpy(coinmarketcap_api_key, amount, symbol):
+    """
+    a function to convert btc to jpy with the current exchange rate
+    """
     api_url = "https://pro-api.coinmarketcap.com/v2/tools/price-conversion"
 
     params = {
@@ -46,9 +56,12 @@ def convert_to_jpy(coinmarketcap_api_key, amount, symbol):
         "X-CMC_PRO_API_KEY": coinmarketcap_api_key
     }
 
+    # Specify a timeout value in seconds (e.g., 10 seconds)
+    timeout_seconds = 10
+
     session = Session()
     session.headers.update(headers)
-    response = requests.get(api_url, params=params, headers=headers)
+    response = requests.get(api_url, params=params, headers=headers, timeout=timeout_seconds)
 
     if response.status_code == 200:
         data = response.json()
@@ -68,9 +81,13 @@ def convert_to_jpy(coinmarketcap_api_key, amount, symbol):
         return None
 
 def get_btc_balance():
+    """
+    a function to get btc wallet balance in JPY
+    """
     coinmarketcap_api_key = "baefec12-bbb8-4e7e-845e-24bd574d0cdc"
 
-    btc_balance_truncated = str(float(get_token_balance()) + 2.50777) #2.5はbybitアカウント分ハードコード。earn中のBTCバランス取得するAPI無い為。
+    #2.5はbybitアカウント分ハードコード。earn中のBTCバランス取得するAPI無い為。
+    btc_balance_truncated = str(float(get_token_balance()) + 2.50777)
 
     if btc_balance_truncated  is not None:
         print(f"BTC残高: {btc_balance_truncated }")

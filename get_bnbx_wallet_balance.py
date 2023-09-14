@@ -1,7 +1,11 @@
+"""module providing a bnbx wallet balance getter"""
 import requests
 from requests import Session
 
 def get_token_balance(bsc_api_key, contract_address, wallet_address):
+    """
+    a function to get bnbx wallet balance from address
+    """
     api_url = "https://api.bscscan.com/api"
 
     params = {
@@ -13,7 +17,16 @@ def get_token_balance(bsc_api_key, contract_address, wallet_address):
         "api_key": bsc_api_key
     }
 
-    response = requests.get(api_url, params=params)
+    # Specify a timeout value in seconds (e.g., 10 seconds)
+    timeout_seconds = 10
+
+    try:
+        response = requests.get(api_url, params=params, timeout=timeout_seconds)
+        # Continue processing the response here
+    except requests.Timeout:
+        print("The request to the API timed out.")
+    except requests.RequestException as error:
+        print(f"An error occurred: {error}")
 
     if response.status_code == 200:
         data = response.json()
@@ -26,6 +39,9 @@ def get_token_balance(bsc_api_key, contract_address, wallet_address):
         return None
 
 def convert_to_jpy(coinmarketcap_api_key, amount, symbol):
+    """
+    a function to convert bnbx to jpy with the current exchange rate
+    """
     api_url = "https://pro-api.coinmarketcap.com/v2/tools/price-conversion"
 
     params = {
@@ -41,7 +57,17 @@ def convert_to_jpy(coinmarketcap_api_key, amount, symbol):
 
     session = Session()
     session.headers.update(headers)
-    response = requests.get(api_url, params=params, headers=headers)
+
+    # Specify a timeout value in seconds (e.g., 10 seconds)
+    timeout_seconds = 10
+
+    try:
+        response = requests.get(api_url, params=params, headers=headers, timeout=timeout_seconds)
+        # Continue processing the response here
+    except requests.Timeout:
+        print("The request to the API timed out.")
+    except requests.RequestException as error:
+        print(f"An error occurred: {error}")
 
     if response.status_code == 200:
         data = response.json()
@@ -61,10 +87,15 @@ def convert_to_jpy(coinmarketcap_api_key, amount, symbol):
         return None
 
 def smallest_decimal_to_normal(balance, decimal_places):
-    # Convert the smallest decimal representation to a normal decimal representation
+    """
+    a function to convert the smallest decimal representation to a normal decimal representation
+    """
     return balance / (10 ** decimal_places)
 
 def truncate_to_range(number, min_value=1e-8, max_value=1000000000000):
+    """
+    a function to truncate value into API range
+    """
     # Coin market cap API指定範囲内に収まるように数値を制限
     if number < min_value:
         number = min_value
@@ -77,6 +108,9 @@ def truncate_to_range(number, min_value=1e-8, max_value=1000000000000):
     return str(number)
 
 def get_bnbx_balance():
+    """
+    a function to get bnbx wallet balance in JPY
+    """
     bsc_api_key = "P8CHB9K1WSKYQXJ7BBDBPWZGER9U33DNDN"
     coinmarketcap_api_key = "baefec12-bbb8-4e7e-845e-24bd574d0cdc"
     contract_address = "0x1bdd3Cf7F79cfB8EdbB955f20ad99211551BA275"
@@ -84,12 +118,17 @@ def get_bnbx_balance():
     decimal_places = 18
 
     bnbx_balance_smallest_decimal = get_token_balance(bsc_api_key, contract_address, wallet_address)
-    bnbx_balance_normal_decimal = smallest_decimal_to_normal(int(bnbx_balance_smallest_decimal), decimal_places)
-    bnbx_balance_normal_decimal_truncated = truncate_to_range(bnbx_balance_normal_decimal, min_value=1e-8, max_value=1000000000000)
+    bnbx_balance_normal_decimal = smallest_decimal_to_normal(int(bnbx_balance_smallest_decimal),\
+                                                              decimal_places)
+    bnbx_balance_normal_decimal_truncated = truncate_to_range(bnbx_balance_normal_decimal,\
+                                                              min_value=1e-8, \
+                                                                max_value=1000000000000)
 
     if bnbx_balance_normal_decimal_truncated is not None:
         print(f"BNBX残高: {bnbx_balance_normal_decimal_truncated}")
-        jpy_amount = convert_to_jpy(coinmarketcap_api_key, bnbx_balance_normal_decimal_truncated, "BNBX")
+        jpy_amount = convert_to_jpy(coinmarketcap_api_key,\
+                                     bnbx_balance_normal_decimal_truncated,\
+                                        "BNBX")
         if jpy_amount is not None:
             print(f"JPY残高: {jpy_amount} JPY")
             return jpy_amount
