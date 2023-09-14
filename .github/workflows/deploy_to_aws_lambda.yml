@@ -18,18 +18,22 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1  # AWS リージョンを適切な値に変更
+        aws-region: ap-northeast-1  # AWS リージョンを適切な値に変更
 
     - name: Replace Secrets in Python Script
       run: |
         # Python スクリプトのパスを指定
-        python_script_path="path/to/your/python_script.py"
+        python_script_path="./moneyforward_balance_updater.py"
         
         # GitHub Secrets から値を取得
-        my_secret_value="${{ secrets.MY_SECRET }}"
+        money_forward_bank_url="${{ env.MONEYFORWARD_BANK_URL }}"
+        my_email_address="${{ secrets.MY_EMAIL_ADDRESS }}"
+        moneyforward_password="${{ secrets.MONEYFORWARD_PASSWORD }}"
         
         # Python スクリプト内の特定の値を GitHub Secrets の値で置き換え
-        sed -i "s/YOUR_SECRET_PLACEHOLDER/$my_secret_value/g" $python_script_path
+        sed -i "s/money_forward_bank_url/$money_forward_bank_url/g" $python_script_path
+        sed -i "s/my_email_address/$my_email_address/g" $python_script_path
+        sed -i "s/moneyforward_password/$moneyforward_password/g" $python_script_path
 
     - name: Create Deployment Package
       run: |
@@ -37,7 +41,7 @@ jobs:
         mkdir deployment_package
 
         # Python スクリプトと依存関係をデプロイメントパッケージにコピー
-        cp path/to/your/python_script.py deployment_package/
+        cp ./* deployment_package/
         # 他の必要なファイルも同様にコピー
 
         # 必要なファイルを .zip ファイルに圧縮
@@ -47,8 +51,8 @@ jobs:
       run: |
         # AWS Lambda 関数のデプロイコマンドを実行
         aws lambda create-function \
-          --function-name MyLambdaFunction \
-          --runtime python3.8 \
-          --handler my_lambda_function.handler \
+          --function-name test \
+          --runtime python3.7 \
+          --handler moneyforward_balance_updater.lambda_handler \
           --zip-file fileb://deployment_package.zip \
-          --role arn:aws:iam::123456789012:role/lambda-role  # IAM ロールのARNを指定
+          --role arn:aws:iam::842763476786:user/MoneyForwardCryptoIntegration # IAM ロールのARNを指定

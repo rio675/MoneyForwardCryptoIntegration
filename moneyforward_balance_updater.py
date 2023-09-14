@@ -1,4 +1,5 @@
 """module providing a lambda function to integrate crypto assets to MoneyForward."""
+import os
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -14,10 +15,9 @@ def lambda_handler(event, context):
     a main lambda function to input balance to money forward by selenium
     """
 
-    url = "https://moneyforward.com/accounts/show_manual/\
-        lyrGhPNBDck89ke9G1cvIt-t3IT8EC1g9wuZh6u7iwQ" #MoneyForwardの更新したい口座のURL
-    user = "" #自分のアカウント
-    password = ""
+    url = os.environ.get('MONEYFORWARD_BANK_URL')#MoneyForwardの更新したい口座のURL
+    user= os.environ.get('MY_EMAIL_ADDRESS')#MoneyForwardの自分のアカウント
+    password = os.environ.get('MONEYFORWARD_PASSWORD')#MoneyForwardの自分のパスワード
 
     try:
         # Chromeをheadlessモードで起動
