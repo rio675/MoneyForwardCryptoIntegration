@@ -38,11 +38,10 @@ jobs:
     - name: Create Deployment Package
       run: |
         # デプロイメントパッケージのディレクトリを作成
-        mkdir -r deployment_package
+        mkdir deployment_package
 
         # Python スクリプトと依存関係をデプロイメントパッケージにコピー
-        cp ./* deployment_package/
-        # 他の必要なファイルも同様にコピー
+        cp -r ./* deployment_package/
 
         # 必要なファイルを .zip ファイルに圧縮
         zip -r deployment_package.zip deployment_package/
