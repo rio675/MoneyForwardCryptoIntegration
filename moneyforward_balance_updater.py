@@ -6,6 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from get_bnbx_wallet_balance import get_bnbx_balance
 from get_btc_wallet_balance import get_btc_balance
+from get_steth_wallet_balance import get_steth_balance
 
 def lambda_handler(event, context):
 
@@ -64,10 +65,13 @@ def lambda_handler(event, context):
         
         driver.implicitly_wait(3)   #wait
         
+        #残高合計金額を計算
+        total_balance = calculate_sum( get_bnbx_balance(), get_btc_balance(), get_steth_balance() )
+
         #残高修正入力
         elem = driver.find_element(By.ID, "rollover_info_value")
         elem.clear()
-        elem.send_keys(calculate_sum())
+        elem.send_keys(total_balance)
         
         driver.implicitly_wait(3)   #wait
         
@@ -92,13 +96,7 @@ def lambda_handler(event, context):
         
     finally:
         print("End")
-        #driver.quit()
+        driver.quit()
 
-
-def calculate_sum():
-    total_sum = 0
-
-    total_sum += get_bnbx_balance()
-    total_sum += get_btc_balance()
-
-    return total_sum
+def calculate_sum(*balances):
+    return sum(balances)
