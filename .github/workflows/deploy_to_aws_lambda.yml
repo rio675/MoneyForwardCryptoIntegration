@@ -31,7 +31,7 @@ jobs:
         moneyforward_password="${{ secrets.MONEYFORWARD_PASSWORD }}"
         
         # Python スクリプト内の特定の値を GitHub Secrets の値で置き換え
-        sed -i "s/MONEY_FORWARD_BANK_URL/$money_forward_bank_url/g" $python_script_path
+        sed -i "s/MONEYFORWARD_BANK_URL/$money_forward_bank_url/g" $python_script_path
         sed -i "s/MY_EMAIL_ADDRESS/$my_email_address/g" $python_script_path
         sed -i "s/MONEYFORWARD_PASSWORD/$moneyforward_password/g" $python_script_path
 
