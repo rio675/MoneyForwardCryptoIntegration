@@ -35,14 +35,20 @@ jobs:
         sed -i "s/my_email_address/$my_email_address/g" $python_script_path
         sed -i "s/moneyforward_password/$moneyforward_password/g" $python_script_path
 
-        - name: Create Deployment Package
-        run: |
-          # 必要なファイルを .zip ファイルに圧縮
-          zip -r deployment_package.zip *.py
+    - name: Create Deployment Package
+      run: |
+        # デプロイメントパッケージのディレクトリを作成
+        mkdir deployment_package
 
-        - name: Deploy Lambda Function
-          run: |
-            # AWS Lambda 関数のアップデートコマンドを実行
-            aws lambda update-function-code\
-              --function-name test\
-              --zip-file fileb://deployment_package.zip
+        # Python スクリプトをデプロイメントパッケージにコピー
+        cp ./*.py deployment_package/
+
+        # 必要なファイルを .zip ファイルに圧縮
+        zip -r deployment_package.zip deployment_package/
+
+    - name: Deploy Lambda Function
+      run: |
+        # AWS Lambda 関数のアップデートコマンドを実行
+        aws lambda update-function-code\
+          --function-name test\
+          --zip-file fileb://deployment_package.zip
