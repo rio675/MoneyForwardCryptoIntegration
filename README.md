@@ -20,5 +20,7 @@ TODO: add　Architecture Diagram here
 [AWS LambdaでSeleniumを動かすときに"Unable to import module 'lambda_function': urllib3 v2.0 only supports OpenSSL 1.1.1+, …](https://qiita.com/wonderland90th/items/a54fa021882ec3c080e3)<br>
 [【Python】ChromeDriverのエラーまとめ【selenium】](https://sushiringblog.com/chromedriver-error#index_id1)
 
-### 2. EventBridgeからLambdaでmoneyforward_balance_updater.pyを定期実行
+### 2.所有資産に応じてgetterを変更/作成し統合
+
+### 3. EventBridgeからLambdaでmoneyforward_balance_updater.pyを定期実行
 [AWS Lambdaで遊ぼう #2 Lambda関数を定期実行する](https://www.benjamin.co.jp/blog/technologies/lambda-2-eventbridge/)
