@@ -40,8 +40,8 @@ jobs:
         # デプロイメントパッケージのディレクトリを作成
         mkdir deployment_package
 
-        # Python スクリプトと依存関係をデプロイメントパッケージにコピー
-        cp -r ./* deployment_package/
+        # Python スクリプトをデプロイメントパッケージにコピー
+        cp ./*.py deployment_package/
 
         # 必要なファイルを .zip ファイルに圧縮
         zip -r deployment_package.zip deployment_package/
