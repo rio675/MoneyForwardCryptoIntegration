@@ -26,7 +26,7 @@ jobs:
         python_script_path="./moneyforward_balance_updater.py"
         
         # GitHub Secrets から値を取得
-        money_forward_bank_url="${{ secrets.MONEYFORWARD_BANK_URL }}"
+        money_forward_bank_url="${{ vars.MONEYFORWARD_BANK_URL }}"
         my_email_address="${{ secrets.MY_EMAIL_ADDRESS }}"
         moneyforward_password="${{ secrets.MONEYFORWARD_PASSWORD }}"
         
