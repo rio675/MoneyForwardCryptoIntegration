@@ -48,10 +48,7 @@ jobs:
 
     - name: Deploy Lambda Function
       run: |
-        # AWS Lambda 関数のデプロイコマンドを実行
-        aws lambda create-function \
-          --function-name test \
-          --runtime python3.7 \
-          --handler moneyforward_balance_updater.lambda_handler \
-          --zip-file fileb://deployment_package.zip \
-          --role arn:aws:iam::842763476786:user/MoneyForwardCryptoIntegration # IAM ロールのARNを指定
+        # AWS Lambda 関数のアップデートコマンドを実行
+        aws lambda update-function-code\
+          --function-name test\
+          --zip-file fileb://deployment_package.zip
