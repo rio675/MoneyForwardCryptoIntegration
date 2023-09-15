@@ -46,7 +46,7 @@ def get_bnbx_balance():
     bsc_api_key = "P8CHB9K1WSKYQXJ7BBDBPWZGER9U33DNDN"
     coinmarketcap_api_key = "baefec12-bbb8-4e7e-845e-24bd574d0cdc"
     contract_address = "0x1bdd3Cf7F79cfB8EdbB955f20ad99211551BA275"
-    wallet_address = "0x60270bF99480FfDC71f2453A38117DA2ED7a5c77"
+    wallet_address = "BNBX_WALLET_ADDRESS"
     decimal_places = 18
 
     bnbx_balance_smallest_decimal = get_token_balance(bsc_api_key, contract_address, wallet_address)

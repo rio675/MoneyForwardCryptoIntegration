@@ -49,7 +49,7 @@ def get_steth_balance():
     """
     etherscan_api_key = "8G7NJ255KV1W4M9P5IIUN7AWHIZDSQU9UD"
     contract_address = "0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84"
-    wallet_address = "0x60270bF99480FfDC71f2453A38117DA2ED7a5c77"
+    wallet_address = "STETH_WALLET_ADDRESS"
     coinmarketcap_api_key = "baefec12-bbb8-4e7e-845e-24bd574d0cdc"
     decimal_places = 18
 

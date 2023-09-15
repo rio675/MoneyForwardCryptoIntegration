@@ -22,18 +22,21 @@ jobs:
 
     - name: Replace Secrets in Python Script
       run: |
-        # Python スクリプトのパスを指定
-        python_script_path="./moneyforward_balance_updater.py"
-        
         # GitHub Secrets から値を取得
         moneyforward_bank_url="${{ secrets.MONEYFORWARD_BANK_URL }}"
         my_email_address="${{ secrets.MY_EMAIL_ADDRESS }}"
         moneyforward_password="${{ secrets.MONEYFORWARD_PASSWORD }}"
+        bnbx_wallet_address="${{ secrets.BNBX_WALLET_ADDRESS }}"
+        btc_wallet_balance_url="${{ secrets.BTC_WALLET_BALANCE_URL }}"
+        steth_wallet_balance="${{ secrets.STETH_WALLET_ADDRESS }}"
         
         # Python スクリプト内の特定の値を GitHub Secrets の値で置き換え
-        sed -i "s#MONEYFORWARD_BANK_URL#$moneyforward_bank_url#g" $python_script_path
-        sed -i "s#MY_EMAIL_ADDRESS#$my_email_address#g" $python_script_path
-        sed -i "s#MONEYFORWARD_PASSWORD#$moneyforward_password#g" $python_script_path
+        sed -i "s#MONEYFORWARD_BANK_URL#$moneyforward_bank_url#g" ./moneyforward_balance_updater.py
+        sed -i "s#MY_EMAIL_ADDRESS#$my_email_address#g" ./moneyforward_balance_updater.py
+        sed -i "s#MONEYFORWARD_PASSWORD#$moneyforward_password#g" ./moneyforward_balance_updater.py
+        sed -i "s#BNBX_WALLET_ADDRESS#$bnbx_wallet_address#g" ./get_bnbx_wallet_balance.py
+        sed -i "s#BTC_WALLET_BALANCE_URL#$btc_wallet_balance_url#g" ./get_btc_wallet_balance.py
+        sed -i "s#STETH_WALLET_ADDRESS#$steth_wallet_balance#g" ./get_steth_wallet_balance.py
 
     - name: Create Deployment Package
       run: |
