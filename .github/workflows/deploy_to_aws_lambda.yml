@@ -37,14 +37,8 @@ jobs:
 
     - name: Create Deployment Package
       run: |
-        # デプロイメントパッケージのディレクトリを作成
-        mkdir deployment_package
-
-        # Python スクリプトをデプロイメントパッケージにコピー
-        cp ./*.py deployment_package/
-
         # 必要なファイルを .zip ファイルに圧縮
-        zip -r deployment_package.zip deployment_package/
+        zip -r deployment_package.zip *.py
 
     - name: Deploy Lambda Function
       run: |
