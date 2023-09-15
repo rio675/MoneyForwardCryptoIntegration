@@ -10,9 +10,9 @@ def get_token_balance():
     # BTC xpub wallet balanceのURL
     # Ledger内のsegwitアドレスの残高取得の良いAPI無し
     # xpubから取得できる良いAPIも無かったのでスクレイピングで暫定対応。レスポンス遅い、後でAPI再捜索。
-    url = "https://www.blockchain.com/explorer/assets/btc/\
-        xpub/xpub6BhqNhL28xrrRXSK6SHzLMob3EppmXNFaUmYJxHDsd\
-            dVwLdQW2VZ3rprrJ8TSbqe7QmSzBZWAY8G9qq9Stzz3fEhr3fR7zfAtGXhLuBbtQy"
+    url = "https://www.blockchain.com/explorer/assets/btc/"\
+        "xpub/xpub6BhqNhL28xrrRXSK6SHzLMob3EppmXNFaUmYJxHDsd"\
+            "dVwLdQW2VZ3rprrJ8TSbqe7QmSzBZWAY8G9qq9Stzz3fEhr3fR7zfAtGXhLuBbtQy"
 
     # Specify a timeout value in seconds (e.g., 10 seconds)
     timeout_seconds = 10
