@@ -22,5 +22,7 @@ TODO: add　Architecture Diagram here
 
 ### 2. 所有資産に応じてgetterを変更/作成し統合
 
-### 3. EventBridgeからLambdaでmoneyforward_balance_updater.pyを定期実行
+### 3. github secretsに下記アカウントやAPIトークンを登録
+
+### 4. EventBridgeからLambdaでmoneyforward_balance_updater.pyを定期実行
 [AWS Lambdaで遊ぼう #2 Lambda関数を定期実行する](https://www.benjamin.co.jp/blog/technologies/lambda-2-eventbridge/)
