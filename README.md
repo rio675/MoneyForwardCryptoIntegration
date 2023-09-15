@@ -22,28 +22,25 @@ TODO: add　Architecture Diagram here
 
 ### 2. 所有資産に応じてgetterを変更/作成し統合
 
-### 3. github secretsに下記アカウントやAPIトークンを登録
-[GitHub Actions でのシークレットの使用](https://docs.github.com/ja/actions/security-guides/using-secrets-in-github-actions)<br>
-#### 必須<br>
-AWS_ACCESS_KEY_ID<br>
- Lambdaを走らせるためのAWSアクセスキーID<br>
-AWS_SECRET_ACCESS_KEY<br>
- Lambdaを走らせるためのAWSアクセスキー<br>
-MONEYFORWARD_BANK_URL<br>
- MoneyForwardに登録した更新対象口座のURL。<br>
- 例:https://moneyforward.com/accounts/show_manual/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx<br>
-MY_EMAIL_ADDRESS<br>
- MoneyForwardに登録したemailアドレス<br>
-MONEYFORWARD_PASSWORD<br>
- MoneyForwardのアカウントパスワード<br>
-#### 資産に応じて<br>
-STETH_WALLET_ADDRESS<br>
- STETHが保管されているウォレットアドレス<br>
-BNBX_WALLET_ADDRESS<br>
- BNBXが保管されているウォレットアドレス<br>
-BTC_WALLET_BALANCE_URL<br>
- 自分のBTC xpubを表示しているBlockchain.comのページ。segwit対応の良いAPIが無くスクレイピングで暫定対応している為。<br>
- 例:https://www.blockchain.com/explorer/assets/btc/xpub/xpub6BhqNxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx<br>
+### 3. GitHub SecretsへのアカウントとAPIトークンの登録
+
+[GitHub Actions でのシークレットの使用](https://docs.github.com/ja/actions/security-guides/using-secrets-in-github-actions)を参照してください。
+
+#### 必須
+
+- **AWS_ACCESS_KEY_ID**: Lambdaを実行するためのAWSアクセスキーID
+- **AWS_SECRET_ACCESS_KEY**: Lambdaを実行するためのAWSアクセスキー
+- **MONEYFORWARD_BANK_URL**: MoneyForwardに登録した更新対象の手動入力口座のURL。
+  例: https://moneyforward.com/accounts/show_manual/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+- **MY_EMAIL_ADDRESS**: MoneyForwardに登録したメールアドレス
+- **MONEYFORWARD_PASSWORD**: MoneyForwardのアカウントパスワード
+
+#### 資産に応じて
+
+- **STETH_WALLET_ADDRESS**: STETHが保管されているウォレットアドレス
+- **BNBX_WALLET_ADDRESS**: BNBXが保管されているウォレットアドレス
+- **BTC_WALLET_BALANCE_URL**: 自分のBTC xpubを表示しているBlockchain.comのページ。segwit対応の良いAPIが無くスクレイピングで暫定対応しているため。
+  例: https://www.blockchain.com/explorer/assets/btc/xpub/xpub6BhqNxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 ### 4. EventBridgeからLambdaでmoneyforward_balance_updater.pyを定期実行
 [AWS Lambdaで遊ぼう #2 Lambda関数を定期実行する](https://www.benjamin.co.jp/blog/technologies/lambda-2-eventbridge/)
