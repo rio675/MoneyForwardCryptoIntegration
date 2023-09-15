@@ -1,7 +1,8 @@
 """module providing a btc wallet balance getter"""
 import requests
-from requests import Session
+
 from bs4 import BeautifulSoup
+from conversion_helpers import convert_to_jpy
 
 def get_token_balance():
     """
@@ -38,47 +39,6 @@ def get_token_balance():
         return text_without_btc
     else:
         print("要素が見つかりませんでした")
-
-def convert_to_jpy(coinmarketcap_api_key, amount, symbol):
-    """
-    a function to convert btc to jpy with the current exchange rate
-    """
-    api_url = "https://pro-api.coinmarketcap.com/v2/tools/price-conversion"
-
-    params = {
-        "symbol": symbol,
-        "amount": amount,
-        "convert": "JPY"
-    }
-
-    headers = {
-        "Accepts": "application/json",
-        "X-CMC_PRO_API_KEY": coinmarketcap_api_key
-    }
-
-    # Specify a timeout value in seconds (e.g., 10 seconds)
-    timeout_seconds = 10
-
-    session = Session()
-    session.headers.update(headers)
-    response = requests.get(api_url, params=params, headers=headers, timeout=timeout_seconds)
-
-    if response.status_code == 200:
-        data = response.json()
-        try:
-            # 'price' の整数部分を取得
-            integer_price = int(data["data"][0]["quote"]["JPY"]["price"])
-            return integer_price
-        except (KeyError, ValueError):
-            return None
-    else:
-        print("API Request Failed. Status Code:", response.status_code)
-        print("API Response:")
-        try:
-            print(response.json())  # エラーレスポンスを表示
-        except ValueError:
-            print(response.text)  # エラーレスポンスがJSONでない場合、テキストとして表示
-        return None
 
 def get_btc_balance():
     """
