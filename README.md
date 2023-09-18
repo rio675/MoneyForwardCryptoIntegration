@@ -30,8 +30,8 @@ MoneyForwardCryptoIntegrationは、仮想通貨資産等の非対応資産の統
 
 - **AWS_ACCESS_KEY_ID**: Lambdaを実行するためのAWSアクセスキーID
 - **AWS_SECRET_ACCESS_KEY**: Lambdaを実行するためのAWSアクセスキー
-- **MONEYFORWARD_BANK_URL**: MoneyForwardに登録した更新対象の手動入力口座のURL。
-  例: https://moneyforward.com/accounts/show_manual/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+- **MONEYFORWARD_BANK_URL**: MoneyForwardに登録した更新対象の手動入力口座のURL。<br>
+  例: https://moneyforward.com/accounts/show_manual/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 - **MY_EMAIL_ADDRESS**: MoneyForwardに登録したメールアドレス
 - **MONEYFORWARD_PASSWORD**: MoneyForwardのアカウントパスワード
 
@@ -39,8 +39,8 @@ MoneyForwardCryptoIntegrationは、仮想通貨資産等の非対応資産の統
 
 - **STETH_WALLET_ADDRESS**: STETHが保管されているウォレットアドレス
 - **BNBX_WALLET_ADDRESS**: BNBXが保管されているウォレットアドレス
-- **BTC_WALLET_BALANCE_URL**: 自分のBTC xpubを表示しているBlockchain.comのページ。segwit対応の良いAPIが無くスクレイピングで暫定対応しているため。
-  例: https://www.blockchain.com/explorer/assets/btc/xpub/xpub6BhqNxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+- **BTC_WALLET_BALANCE_URL**: 自分のBTC xpubを表示しているBlockchain.comのページ。segwit対応の良いAPIが無くスクレイピングで暫定対応しているため。<br>
+  例: https://www.blockchain.com/explorer/assets/btc/xpub/xpub6BhqNxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 ### 4. EventBridgeからLambdaでmoneyforward_balance_updater.pyを定期実行
 [AWS Lambdaで遊ぼう #2 Lambda関数を定期実行する](https://www.benjamin.co.jp/blog/technologies/lambda-2-eventbridge/)
