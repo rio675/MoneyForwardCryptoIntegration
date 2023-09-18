@@ -27,7 +27,7 @@ def lambda_handler(event, context):
 
 def setup_browser():
     """
-    a function to setup headless chrome for Lambda
+    ブラウザのセットアップを行う関数
     """
     # Chromeをheadlessモードで起動
     driver_path ='/opt/headless/chromedriver'
@@ -46,43 +46,42 @@ def setup_browser():
                             (Windows NT 10.0; Win64; x64)\
                             AppleWebKit/537.36 (KHTML, like Gecko)\
                             Chrome/58.0.3029.110 Safari/537.36")
+
     # pylint: disable=E1123
     driver = webdriver.Chrome(executable_path=driver_path, options=options)
-    driver.implicitly_wait(10)  # wait
+    driver.implicitly_wait(10)
     return driver
 
 def login_to_moneyforward(driver, url, user, password):
     """
-    a function to login moneyforward by selenium
+    マネーフォワードにログインする関数
     """
 
-    #マネーフォワードの銀行ページに遷移
     driver.get(url)
-
     WebDriverWait(driver, 10)
 
-    #アカウント入力
     elem = driver.find_element(By.ID, "mfid_user[email]")
     elem.clear()
     elem.send_keys(user)
 
-    #ログインボタンクリック
     button = driver.find_element(By.ID, "submitto")
     button.click()
 
-    driver.implicitly_wait(3)   #wait
+    driver.implicitly_wait(3)
 
-    #パスワード入力
     elem = driver.find_element(By.ID, "mfid_user[password]")
     elem.clear()
     elem.send_keys(password)
 
-    #ログインボタンクリック
     button = driver.find_element(By.ID, "submitto")
     button.click()
 
-    driver.implicitly_wait(3)   #wait
+    driver.implicitly_wait(3)
 
+    button = driver.find_element(By.LINK_TEXT, "残高修正")
+    button.click()
+
+    driver.implicitly_wait(3)
 
 def update_moneyforward_balance(driver):
     """
