@@ -43,4 +43,5 @@ MoneyForwardCryptoIntegrationは、仮想通貨資産等の非対応資産の統
   例: https://www.blockchain.com/explorer/assets/btc/xpub/xpub6BhqNxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 ### 4. EventBridgeからLambdaでmoneyforward_balance_updater.pyを定期実行
+ハンドラはmoneyforward_balance_updater.lambda_handler<br>
 [AWS Lambdaで遊ぼう #2 Lambda関数を定期実行する](https://www.benjamin.co.jp/blog/technologies/lambda-2-eventbridge/)
