@@ -14,7 +14,7 @@ def get_token_balance():
     url = 'BTC_WALLET_BALANCE_URL'
 
     # Specify a timeout value in seconds (e.g., 10 seconds)
-    timeout_seconds = 10
+    timeout_seconds = 20
 
     # HTTP GETリクエストを送信してHTMLを取得
     response = requests.get(url, timeout=timeout_seconds)
