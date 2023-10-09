@@ -44,8 +44,8 @@ def get_btc_balance():
     """
     coinmarketcap_api_key = "baefec12-bbb8-4e7e-845e-24bd574d0cdc"
 
-    #2.5はbybitアカウント分ハードコード。earn中のBTCバランス取得するAPI無い為。
-    btc_balance_truncated = str(float(get_token_balance()) + 2.51432)
+    #3.66はbybit＋NEXOアカウント分ハードコード。earn中のBTCバランス取得するAPI無い為。
+    btc_balance_truncated = str(float(get_token_balance()) + 3.6642479)
 
     if btc_balance_truncated  is not None:
         print(f"BTC残高: {btc_balance_truncated }")
