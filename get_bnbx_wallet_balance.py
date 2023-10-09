@@ -52,9 +52,10 @@ def get_bnbx_balance():
     bnbx_balance_smallest_decimal = get_token_balance(bsc_api_key, contract_address, wallet_address)
     bnbx_balance_normal_decimal = smallest_decimal_to_normal(int(bnbx_balance_smallest_decimal),\
                                                               decimal_places)
+    # 90はNEXO Staking分、API無いため暫定ハードコード
     bnbx_balance_normal_decimal_truncated = truncate_to_range(bnbx_balance_normal_decimal,\
                                                               min_value=1e-8, \
-                                                                max_value=1000000000000)
+                                                                max_value=1000000000000) + 90
 
     if bnbx_balance_normal_decimal_truncated is not None:
         print(f"BNBX残高: {bnbx_balance_normal_decimal_truncated}")
