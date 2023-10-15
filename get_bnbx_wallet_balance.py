@@ -55,8 +55,8 @@ def get_bnbx_balance():
     # 90はNEXO Staking分、API無いため暫定ハードコード
     bnbx_balance_normal_decimal_truncated = str(189.819)
     # bnbx_balance_normal_decimal_truncated = str(truncate_to_range(bnbx_balance_normal_decimal,\
-                                                              min_value=1e-8, \
-                                                                max_value=1000000000000))
+    #                                                          min_value=1e-8, \
+    #                                                            max_value=1000000000000))
 
     if bnbx_balance_normal_decimal_truncated is not None:
         print(f"BNBX残高: {bnbx_balance_normal_decimal_truncated}")
