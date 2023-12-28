@@ -88,7 +88,7 @@ def update_moneyforward_balance(driver):
     """
     マネーフォワードの残高を更新する関数
     """
-    total_balance = calculate_sum(get_bnb_balance(), get_bnbx_balance(), get_btc_balance(), get_steth_balance())
+    total_balance = calculate_sum(get_bnb_balance(), get_btc_balance(), get_steth_balance())
 
     elem = driver.find_element(By.ID, "rollover_info_value")
     elem.clear()
