@@ -4,6 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 
+from get_bnb_wallet_balance import get_bnb_balance
 from get_bnbx_wallet_balance import get_bnbx_balance
 from get_btc_wallet_balance import get_btc_balance
 from get_steth_wallet_balance import get_steth_balance
@@ -87,7 +88,7 @@ def update_moneyforward_balance(driver):
     """
     マネーフォワードの残高を更新する関数
     """
-    total_balance = calculate_sum(get_bnbx_balance(), get_btc_balance(), get_steth_balance())
+    total_balance = calculate_sum(get_bnb_balance(), get_bnbx_balance(), get_btc_balance(), get_steth_balance())
 
     elem = driver.find_element(By.ID, "rollover_info_value")
     elem.clear()
