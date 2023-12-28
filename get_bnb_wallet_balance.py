@@ -10,7 +10,7 @@ def get_bnb_balance():
     coinmarketcap_api_key = "baefec12-bbb8-4e7e-845e-24bd574d0cdc"
 
     # NEXO Staking分、API無いため暫定ハードコード
-    bnb_balance_normal_decimal_truncated = str(215.154)
+    bnb_balance_normal_decimal_truncated = str('BNB_WALLET_BALANCE')
 
     if bnb_balance_normal_decimal_truncated is not None:
         print(f"BNB残高: {bnb_balance_normal_decimal_truncated}")
