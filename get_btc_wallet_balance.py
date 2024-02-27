@@ -44,7 +44,7 @@ def get_btc_balance():
     """
     coinmarketcap_api_key = "baefec12-bbb8-4e7e-845e-24bd574d0cdc"
 
-    #bybit＋NEXOアカウント分ハードコード。bybit earn中のBTCバランス取得するAPI & NEXO API無い為。
+    # hardcoded wallet balance. The balance will be updated from github secret
     btc_balance_truncated = str(float(get_token_balance()) + float('BTC_WALLET_BALANCE'))
 
     if btc_balance_truncated  is not None:

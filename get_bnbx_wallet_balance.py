@@ -52,7 +52,7 @@ def get_bnbx_balance():
     bnbx_balance_smallest_decimal = get_token_balance(bsc_api_key, contract_address, wallet_address)
     #bnbx_balance_normal_decimal = smallest_decimal_to_normal(int(bnbx_balance_smallest_decimal),\
     #                                                          decimal_places)
-    # NEXO Staking分、API無いため暫定ハードコード
+    # hardcoded wallet balance. The balance will be updated from github secret
     bnbx_balance_normal_decimal_truncated = str(0)
     # bnbx_balance_normal_decimal_truncated = str(truncate_to_range(bnbx_balance_normal_decimal,\
     #                                                          min_value=1e-8, \
