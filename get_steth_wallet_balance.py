@@ -25,8 +25,8 @@ def get_token_balance(etherscan_api_key, contract_address, wallet_address, max_r
     timeout_seconds = 10
 
     # リトライ回数と遅延時間の設定
-    max_retries = max_retries
-    retry_delay = retry_delay
+    max_retries = 5
+    retry_delay = 60
 
     for i in range(max_retries + 1):
         try:
