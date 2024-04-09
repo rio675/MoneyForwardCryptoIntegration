@@ -1,5 +1,6 @@
 """module providing a btc wallet balance getter"""
 import requests
+import time
 
 from bs4 import BeautifulSoup
 from conversion_helpers import convert_to_jpy
