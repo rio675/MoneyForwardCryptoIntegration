@@ -16,27 +16,41 @@ def get_token_balance():
     # Specify a timeout value in seconds (e.g., 10 seconds)
     timeout_seconds = 20
 
-    # HTTP GETリクエストを送信してHTMLを取得
-    response = requests.get(url, timeout=timeout_seconds)
-    html = response.text
+    # リトライ回数
+    max_retries = 3
+    retries = 0
 
-    # BeautifulSoupを使用してHTMLを解析
-    soup = BeautifulSoup(html, 'html.parser')
+    while retries < max_retries:
+        try:
+            # HTTP GETリクエストを送信してHTMLを取得
+            response = requests.get(url, timeout=timeout_seconds)
+            response.raise_for_status()  # エラーチェック
 
-    # 特定の要素を抽出
-    element = soup.find('div', class_='sc-242e2fca-9 ggNVeI')
+            html = response.text
 
-    # 要素のテキストを抽出
-    if element:
-        text = element.get_text(strip=True)
+            # BeautifulSoupを使用してHTMLを解析
+            soup = BeautifulSoup(html, 'html.parser')
 
-        # BTCの文字列を削除
-        text_without_btc = text.replace("BTC", "")
-        print(text_without_btc)
+            # 特定の要素を抽出
+            element = soup.find('div', class_='sc-242e2fca-9 ggNVeI')
 
-        return text_without_btc
-    else:
-        print("要素が見つかりませんでした")
+            # 要素のテキストを抽出
+            if element:
+                text = element.get_text(strip=True)
+
+                # BTCの文字列を削除
+                text_without_btc = text.replace("BTC", "")
+                print(text_without_btc)
+
+                return text_without_btc
+            else:
+                print("要素が見つかりませんでした")
+        except requests.exceptions.RequestException as e:
+            print(f"リクエストエラー: {e}")
+            retries += 1
+            print(f"リトライ中... (回数: {retries})")
+            time.sleep(5)  # 5秒待ってリトライ
+    print("リトライ回数を超えました。")
 
 def get_btc_balance():
     """
