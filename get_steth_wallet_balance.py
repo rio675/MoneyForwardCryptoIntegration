@@ -1,11 +1,12 @@
 """module providing a steth wallet balance getter"""
 import requests
+import time
 
 from conversion_helpers import convert_to_jpy, smallest_decimal_to_normal, truncate_to_range
 
-def get_token_balance(etherscan_api_key, contract_address, wallet_address):
+def get_token_balance(etherscan_api_key, contract_address, wallet_address, max_retries=3, retry_delay=1):
     """
-    a function to get steth wallet balance from address
+    a function to get steth wallet balance from address with retry
     """
     # Etherscan APIのエンドポイント
     url = "https://api.etherscan.io/api"
@@ -23,25 +24,36 @@ def get_token_balance(etherscan_api_key, contract_address, wallet_address):
     # Specify a timeout value in seconds (e.g., 10 seconds)
     timeout_seconds = 10
 
-    try:
-        # APIリクエストの送信
-        response = requests.get(url, params=params, timeout=timeout_seconds)
+    # リトライ回数と遅延時間の設定
+    max_retries = max_retries
+    retry_delay = retry_delay
 
-        # レスポンスのJSONデータを取得
-        data = response.json()
+    for i in range(max_retries + 1):
+        try:
+            # APIリクエストの送信
+            response = requests.get(url, params=params, timeout=timeout_seconds)
 
-        # トークン残高を取得
-        token_balance = data.get("result")
+            # レスポンスのJSONデータを取得
+            data = response.json()
 
-        if token_balance is not None:
-            print(f"トークン残高: {token_balance}")
-            return token_balance
-        else:
-            print("トークン残高が見つかりませんでした。")
-    except requests.exceptions.RequestException as error:
-        print(f"APIリクエストエラー: {error}")
-    except ValueError as error:
-        print(f"JSONデータの解析エラー: {error}")
+            # トークン残高を取得
+            token_balance = data.get("result")
+
+            if token_balance is not None:
+                print(f"トークン残高: {token_balance}")
+                return token_balance
+            else:
+                print("トークン残高が見つかりませんでした。")
+        except requests.exceptions.RequestException as error:
+            print(f"APIリクエストエラー: {error}")
+            time.sleep(retry_delay)
+        except ValueError as error:
+            print(f"JSONデータの解析エラー: {error}")
+            time.sleep(retry_delay)
+
+    if i == max_retries:
+        print(f"最大リトライ回数に達しました。")
+        return None
 
 def get_steth_balance():
     """
