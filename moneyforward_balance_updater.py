@@ -45,6 +45,7 @@ def login_to_moneyforward(page, user, password):
     return page
 
 def delete_all_cash_deposit(page):
+    page.wait_for_load_state('networkidle')
     # Click all delete buttons(削除ボタンがなくなるまで削除ボタンをクリックし続ける)
     while True:
         # Handle dialog (popup)　表示されるダイアログを自動的に承認（OKボタンを押す）する。
@@ -60,6 +61,7 @@ def delete_all_cash_deposit(page):
         page.wait_for_load_state('networkidle')
 
 def create_asset_in_mf(page, asset_type, asset_name, market_value):
+    page.wait_for_load_state('networkidle')
     #マネーフォワードの残高を新規作成する関数
     page.get_by_role("button", name="手入力で資産を追加").click()
     page.get_by_role("combobox", name="資産の種類").select_option(str(asset_type))
