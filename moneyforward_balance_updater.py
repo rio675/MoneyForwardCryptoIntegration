@@ -5,6 +5,8 @@ from get_bnb_wallet_balance import get_bnb_balance
 from get_bnbx_wallet_balance import get_bnbx_balance
 from get_btc_wallet_balance import get_btc_balance
 from get_steth_wallet_balance import get_steth_balance
+from get_pepe_wallet_balance import get_pepe_balance
+from get_shib_wallet_balance import get_shib_balance
 
 # pylint: disable=W0613
 def lambda_handler(event, context):
@@ -79,6 +81,8 @@ def update_moneyforward_balance(page):
     create_asset_in_mf(page, 66, 'BTC', get_btc_balance())
     create_asset_in_mf(page, 66, 'BNB', get_bnb_balance())
     create_asset_in_mf(page, 66, 'STETH', get_steth_balance())
+    create_asset_in_mf(page, 66, 'PEPE', get_pepe_balance())
+    create_asset_in_mf(page, 66, 'SHIB', get_shib_balance())
     return page
 
 if __name__ == "__main__":

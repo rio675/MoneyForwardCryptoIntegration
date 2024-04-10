@@ -31,6 +31,8 @@ jobs:
         steth_wallet_balance="${{ secrets.STETH_WALLET_ADDRESS }}"
         btc_wallet_balance="${{ secrets.BTC_WALLET_BALANCE }}"
         bnb_wallet_balance="${{ secrets.BNB_WALLET_BALANCE }}"
+        pepe_wallet_balance="${{ secrets.PEPE_WALLET_BALANCE }}"
+        shib_wallet_balance="${{ secrets.SHIB_WALLET_BALANCE }}"
         
         # Python スクリプト内の特定の値を GitHub Secrets の値で置き換え
         sed -i "s#MONEYFORWARD_BANK_URL#$moneyforward_bank_url#g" ./moneyforward_balance_updater.py
@@ -41,6 +43,8 @@ jobs:
         sed -i "s#BTC_WALLET_BALANCE_URL#$btc_wallet_balance_url#g" ./get_btc_wallet_balance.py
         sed -i "s#BTC_WALLET_BALANCE#$btc_wallet_balance#g" ./get_btc_wallet_balance.py
         sed -i "s#STETH_WALLET_ADDRESS#$steth_wallet_balance#g" ./get_steth_wallet_balance.py
+        sed -i "s#PEPE_WALLET_BALANCE#$pepe_wallet_balance#g" ./get_pepe_wallet_balance.py
+        sed -i "s#SHIB_WALLET_BALANCE#$shib_wallet_balance#g" ./get_shib_wallet_balance.py
 
     - name: Create Deployment Package
       run: |
