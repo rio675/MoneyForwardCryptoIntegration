@@ -40,7 +40,6 @@ def get_token_balance(etherscan_api_key, contract_address, wallet_address, max_r
             token_balance = data.get("result")
 
             if token_balance is not None:
-                print(f"トークン残高: {token_balance}")
                 return token_balance
             else:
                 print("トークン残高が見つかりませんでした。")
