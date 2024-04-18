@@ -1,4 +1,5 @@
 """module providing a lambda function to integrate crypto assets to MoneyForward."""
+import time
 from playwright.sync_api import sync_playwright
 
 from get_bnb_wallet_balance import get_bnb_balance
@@ -62,17 +63,29 @@ def delete_all_cash_deposit(page):
         # Wait for navigation (optional, depending on the page)
         page.wait_for_load_state('networkidle')
 
-def create_asset_in_mf(page, asset_type, asset_name, market_value):
-    page.wait_for_load_state('networkidle')
-    #マネーフォワードの残高を新規作成する関数
-    page.get_by_role("button", name="手入力で資産を追加").click()
-    page.get_by_role("combobox", name="資産の種類").select_option(str(asset_type))
-    page.get_by_label("資産の名称").fill(str(asset_name)[:20])
-    page.get_by_label("現在の価値").fill(str(market_value)[:12])
-    page.get_by_role("button", name="この内容で登録する").click()
-    page.wait_for_timeout(2000)
-    page.wait_for_load_state('networkidle')
-    return True
+def create_asset_in_mf(page, asset_type, asset_name, market_value, max_retries=5, retry_interval=5):
+    retries = 0
+    while retries < max_retries:
+        try:
+            page.wait_for_load_state('networkidle')
+            page.once("dialog", lambda dialog: dialog.accept())
+            page.wait_for_load_state('networkidle')
+            # マネーフォワードの残高を新規作成する関数
+            page.get_by_role("button", name="手入力で資産を追加").click()
+            page.get_by_role("combobox", name="資産の種類").select_option(str(asset_type))
+            page.get_by_label("資産の名称").fill(str(asset_name)[:20])
+            page.get_by_label("現在の価値").fill(str(market_value)[:12])
+            page.get_by_role("button", name="この内容で登録する").click()
+            page.wait_for_timeout(2000)
+            page.wait_for_load_state('networkidle')
+            return True
+        except Exception as e:
+            retries += 1
+            print(f"Error occurred: {e}. Retrying ({retries}/{max_retries})...")
+            time.sleep(retry_interval)  # 一定時間待機してから再試行   
+    # 最大再試行回数に達した場合
+    print(f"Maximum retries ({max_retries}) exceeded. Failed to create asset.")
+    return False
 
 def update_moneyforward_balance(page):
     #前の入力項目を全削除
