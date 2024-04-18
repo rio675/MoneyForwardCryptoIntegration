@@ -87,15 +87,35 @@ def create_asset_in_mf(page, asset_type, asset_name, market_value, max_retries=5
     print(f"Maximum retries ({max_retries}) exceeded. Failed to create asset.")
     return False
 
-def update_moneyforward_balance(page):
-    #前の入力項目を全削除
-    delete_all_cash_deposit(page)
-    #66とはまMF内の資産の種類の’暗号資産’のこと
-    create_asset_in_mf(page, 66, 'BTC', get_btc_balance())
-    create_asset_in_mf(page, 66, 'BNB', get_bnb_balance())
-    create_asset_in_mf(page, 66, 'STETH', get_steth_balance())
-    create_asset_in_mf(page, 66, 'PEPE', get_pepe_balance())
-    create_asset_in_mf(page, 66, 'SHIB', get_shib_balance())
+def update_asset_value(page, asset_name, market_value):
+    # シンボルに対応するボタンのセレクターを作成
+    button_selector = f"//td[text()='{asset_name}']/..//a[@data-toggle='modal']"
+    if button_selector:
+        # ボタンをクリック
+        page.query_selector(button_selector).click()
+        # 新しい価値を入力
+        page.get_by_role("row", name=asset_name).locator("#user_asset_det_value").fill(str(market_value)[:12])
+        page.get_by_role("button", name="この内容で登録する").click()
+        page.wait_for_timeout(2000)
+        page.wait_for_load_state('networkidle')
+    else:
+        #前の入力項目を全削除
+        #delete_all_cash_deposit(page)
+        #入力済み仮想通貨資産が無い為、資産額を新規入力
+        #66とはまMF内の資産の種類の’暗号資産’のこと
+        create_asset_in_mf(page, 66, 'BTC', get_btc_balance())
+        create_asset_in_mf(page, 66, 'BNB', get_bnb_balance())
+        create_asset_in_mf(page, 66, 'STETH', get_steth_balance())
+        create_asset_in_mf(page, 66, 'PEPE', get_pepe_balance())
+        create_asset_in_mf(page, 66, 'SHIB', get_shib_balance())
+    return True
+
+def update_moneyforward_balance(page):  
+    update_asset_value(page, 'BTC',   get_btc_balance())
+    update_asset_value(page, 'BNB',   get_bnb_balance())
+    update_asset_value(page, 'STETH', get_steth_balance())
+    update_asset_value(page, 'PEPE',  get_pepe_balance())
+    update_asset_value(page, 'SHIB',  get_shib_balance())
     return page
 
 if __name__ == "__main__":
