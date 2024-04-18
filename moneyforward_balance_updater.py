@@ -90,7 +90,7 @@ def create_asset_in_mf(page, asset_type, asset_name, market_value, max_retries=5
 def update_asset_value(page, asset_name, market_value):
     # シンボルに対応するボタンのセレクターを作成
     button_selector = f"//td[text()='{asset_name}']/..//a[@data-toggle='modal']"
-    if button_selector:
+    try:
         # ボタンをクリック
         page.query_selector(button_selector).click()
         # 新しい価値を入力
@@ -98,16 +98,10 @@ def update_asset_value(page, asset_name, market_value):
         page.get_by_role("button", name="この内容で登録する").click()
         page.wait_for_timeout(2000)
         page.wait_for_load_state('networkidle')
-    else:
-        #前の入力項目を全削除
-        #delete_all_cash_deposit(page)
+    except:
         #入力済み仮想通貨資産が無い為、資産額を新規入力
         #66とはまMF内の資産の種類の’暗号資産’のこと
-        create_asset_in_mf(page, 66, 'BTC', get_btc_balance())
-        create_asset_in_mf(page, 66, 'BNB', get_bnb_balance())
-        create_asset_in_mf(page, 66, 'STETH', get_steth_balance())
-        create_asset_in_mf(page, 66, 'PEPE', get_pepe_balance())
-        create_asset_in_mf(page, 66, 'SHIB', get_shib_balance())
+        create_asset_in_mf(page, 66, asset_name, market_value)
     return True
 
 def update_moneyforward_balance(page):  
