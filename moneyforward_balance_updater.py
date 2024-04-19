@@ -91,7 +91,7 @@ def update_asset_value(page, asset_name, market_value):
     # シンボルに対応するボタンのセレクターを作成
     button_selector = f"//td[text()='{asset_name}']/..//a[@data-toggle='modal']"
     try:
-        # ボタンをクリック
+        # 変更ボタンをクリック
         page.query_selector(button_selector).click()
         # 新しい価値を入力
         page.get_by_role("row", name=asset_name).locator("#user_asset_det_value").fill(str(market_value)[:12])
@@ -105,6 +105,7 @@ def update_asset_value(page, asset_name, market_value):
     return True
 
 def update_moneyforward_balance(page):  
+    #自分のポートフォリオに合わせてget_XXX_balanceを作成しCall
     update_asset_value(page, 'BTC',   get_btc_balance())
     update_asset_value(page, 'BNB',   get_bnb_balance())
     update_asset_value(page, 'STETH', get_steth_balance())
