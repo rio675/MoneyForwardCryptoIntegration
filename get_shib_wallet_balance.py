@@ -11,7 +11,7 @@ def get_shib_balance():
     shib_balance_normal_decimal_truncated = str('SHIB_WALLET_BALANCE')
 
     if shib_balance_normal_decimal_truncated is not None:
-        print(f"shib残高: {shib_balance_normal_decimal_truncated}")
+        print(f"SHIB残高: {shib_balance_normal_decimal_truncated}")
         jpy_amount = convert_to_jpy(coinmarketcap_api_key,\
                                      shib_balance_normal_decimal_truncated,\
                                         "shib")
@@ -21,7 +21,7 @@ def get_shib_balance():
         else:
             print("JPYへの変換ができませんでした。")
     else:
-        print("shib残高が取得できませんでした。")
+        print("SHIB残高が取得できませんでした。")
 
 if __name__ == "__main__":
     get_shib_balance()
