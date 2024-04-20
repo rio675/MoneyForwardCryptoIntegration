@@ -11,7 +11,7 @@ def get_pepe_balance():
     pepe_balance_normal_decimal_truncated = str('PEPE_WALLET_BALANCE')
 
     if pepe_balance_normal_decimal_truncated is not None:
-        print(f"pepe残高: {pepe_balance_normal_decimal_truncated}")
+        print(f"PEPE残高: {pepe_balance_normal_decimal_truncated}")
         jpy_amount = convert_to_jpy(coinmarketcap_api_key,\
                                      pepe_balance_normal_decimal_truncated,\
                                         "pepe")
@@ -21,7 +21,7 @@ def get_pepe_balance():
         else:
             print("JPYへの変換ができませんでした。")
     else:
-        print("pepe残高が取得できませんでした。")
+        print("PEPE残高が取得できませんでした。")
 
 if __name__ == "__main__":
     get_pepe_balance()
