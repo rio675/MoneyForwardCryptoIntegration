@@ -1,8 +1,8 @@
 # コンテナ内でlambda関数を配置するディレクトリ名を定義
 ARG FUNCTION_DIR="/function"
 
-# msが公開しているplaywright1.42.0用のイメージを使用する
-FROM mcr.microsoft.com/playwright/python:v1.42.0-jammy as build-image
+# msが公開しているplaywright1.43.0用のイメージを使用する
+FROM mcr.microsoft.com/playwright/python:v1.43.0-jammy as build-image
 
 # 依存ライブラリをインストールする
 RUN apt-get update
@@ -30,7 +30,7 @@ RUN python -m pip install requests
 RUN python -m pip install bs4
 
 # マルチステージビルドのおまじない
-FROM mcr.microsoft.com/playwright/python:v1.42.0-jammy
+FROM mcr.microsoft.com/playwright/python:v1.43.0-jammy
 
 # おまじない2
 ARG FUNCTION_DIR
