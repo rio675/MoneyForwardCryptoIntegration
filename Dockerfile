@@ -6,11 +6,11 @@ FROM mcr.microsoft.com/playwright/python:v1.42.0-jammy as build-image
 
 # 依存ライブラリをインストールする
 RUN apt-get update
-RUN apt-get install -y g++
-RUN apt-get install -y make
-RUN apt-get install -y cmake
-RUN apt-get install -y unzip
-RUN apt-get install -y libcurl4-openssl-dev
+#RUN apt-get install -y g++
+#RUN apt-get install -y make
+#RUN apt-get install -y cmake
+#RUN apt-get install -y unzip
+#RUN apt-get install -y libcurl4-openssl-dev
 
 # おまじない1
 ARG FUNCTION_DIR
@@ -19,14 +19,14 @@ ARG FUNCTION_DIR
 RUN mkdir -p ${FUNCTION_DIR}
 
 # lambda関数のコード一式をコピーする
-COPY test/* ${FUNCTION_DIR}
+COPY ./* ${FUNCTION_DIR}
 
 # runtime interface clientというライブラリをインストールする
 RUN python -m pip install --upgrade pip
 RUN python -m pip install --target ${FUNCTION_DIR} playwright awslambdaric
 
 # その他のランタイムをインスト＾るする（お好みで）
-RUN python -m pip install --target ${FUNCTION_DIR} boto3 pandas
+#RUN python -m pip install --target ${FUNCTION_DIR} boto3 pandas
 
 # マルチステージビルドのおまじない
 FROM mcr.microsoft.com/playwright/python:v1.42.0-jammy
