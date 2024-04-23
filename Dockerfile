@@ -26,7 +26,8 @@ RUN python -m pip install --upgrade pip
 RUN python -m pip install --target ${FUNCTION_DIR} playwright awslambdaric
 
 # その他のランタイムをインスト＾るする（お好みで）
-#RUN python -m pip install --target ${FUNCTION_DIR} boto3 pandas
+RUN python -m pip install requests
+RUN python -m pip install bs4
 
 # マルチステージビルドのおまじない
 FROM mcr.microsoft.com/playwright/python:v1.42.0-jammy
